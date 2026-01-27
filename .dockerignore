@@ -1,0 +1,43 @@
+# Docker ignore - Archivos que no deben copiarse al contenedor
+# Reduce el tamaño de la imagen y mejora el tiempo de build
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+*.test.js
+*.spec.js
+__tests__/
+__mocks__/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

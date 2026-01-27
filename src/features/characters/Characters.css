@@ -1,0 +1,374 @@
+.characters-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.title-icon {
+  font-size: 3.5rem;
+}
+
+.page-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.3rem;
+  color: #c9d1d9;
+  font-style: italic;
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-family: 'Philosopher', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #d4af37;
+  border-radius: 50px;
+  color: #c9d1d9;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
+}
+
+.search-input::placeholder {
+  color: rgba(201, 209, 217, 0.5);
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.character-card {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+  border: 2px solid #2a2a2a;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.character-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+}
+
+.character-image-container {
+  position: relative;
+  height: 300px;
+  background: linear-gradient(180deg, rgba(42, 42, 42, 0.5) 0%, rgba(26, 26, 46, 0.8) 100%);
+  overflow: hidden;
+}
+
+.character-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.character-card:hover .character-image {
+  transform: scale(1.05);
+}
+
+.character-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a2e 100%);
+}
+
+.placeholder-icon {
+  font-size: 5rem;
+  opacity: 0.3;
+}
+
+.character-house-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.6rem 1.2rem;
+  color: white;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.2) inset;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.character-info {
+  padding: 1.5rem;
+}
+
+.character-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  color: #d4af37;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.character-actor {
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  color: #a8b2c0;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.character-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 15px;
+  font-size: 0.85rem;
+  color: #c9d1d9;
+  font-family: 'Philosopher', sans-serif;
+}
+
+.badge-icon {
+  font-size: 1rem;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(22, 33, 62, 0.98) 100%);
+  border: 2px solid rgba(212, 175, 55, 0.6);
+  border-radius: 16px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 75vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7),
+              0 0 30px rgba(212, 175, 55, 0.15);
+  backdrop-filter: blur(15px);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(212, 175, 55, 0.2);
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: #d4af37;
+  color: #1a1a2e;
+  transform: rotate(90deg);
+}
+
+.modal-header-compact {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.modal-header-compact h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  color: #d4af37;
+  margin-bottom: 0.5rem;
+}
+
+.modal-actor {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.1rem;
+  color: #a8b2c0;
+  font-style: italic;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.info-item strong {
+  color: #d4af37;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.info-item span {
+  color: #c9d1d9;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.alternate-names {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(212, 175, 55, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.alternate-names strong {
+  color: #d4af37;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.names-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.name-tag {
+  padding: 0.5rem 1rem;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  color: #c9d1d9;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.9rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-family: 'IM Fell English', serif;
+  font-size: 1.3rem;
+  color: #a8b2c0;
+  font-style: italic;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .title-icon {
+    font-size: 2.5rem;
+  }
+
+  .characters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    max-height: 80vh;
+  }
+
+  .modal-header-compact h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

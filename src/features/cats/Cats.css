@@ -1,0 +1,628 @@
+.cats-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.api-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(56, 142, 60, 0.2) 100%);
+  border: 2px solid #4caf50;
+  border-radius: 25px;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  color: #81c784;
+  margin-top: 1rem;
+  animation: pulse-green 2s ease-in-out infinite;
+}
+
+.api-badge.authenticated {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(56, 142, 60, 0.2) 100%);
+  border-color: #4caf50;
+  color: #81c784;
+}
+
+.api-badge.guest {
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.2), rgba(255, 140, 0, 0.1));
+  border-color: #fb923c;
+  color: #ffa500;
+  animation: pulse-orange 2s ease-in-out infinite;
+}
+
+@keyframes pulse-orange {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
+  }
+}
+
+.logout-button {
+  background: rgba(255, 59, 48, 0.8);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background: rgba(255, 59, 48, 1);
+  transform: scale(1.05);
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+.api-explanation {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 1rem;
+  color: #c9d1d9;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(212, 175, 55, 0.05);
+  border-left: 3px solid #d4af37;
+  border-radius: 5px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1) 0%, rgba(211, 47, 47, 0.1) 100%);
+  border: 2px solid #f44336;
+  border-radius: 15px;
+  margin: 2rem 0;
+}
+
+.error-message p {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.3rem;
+  color: #ef5350;
+  margin-bottom: 1.5rem;
+}
+
+.retry-button {
+  padding: 1rem 2rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+  color: white;
+  border: 2px solid #d32f2f;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(244, 67, 54, 0.4);
+}
+
+.cats-info {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.cats-count {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.3rem;
+  color: #d4af37;
+  font-style: italic;
+}
+
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.cat-card {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+  border: 2px solid #d4af37;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cat-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.4);
+  border-color: #f0c75e;
+}
+
+.cat-image-container {
+  position: relative;
+  height: 350px;
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+.cat-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.cat-card:hover .cat-image {
+  transform: scale(1.1);
+}
+
+.cat-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cat-card:hover .cat-overlay {
+  opacity: 1;
+}
+
+.cat-overlay-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cat-dimension,
+.cat-origin {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  color: #c9d1d9;
+  margin: 0;
+}
+
+.cat-info {
+  padding: 1.5rem;
+}
+
+.cat-breed {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.cat-temperament,
+.cat-lifespan {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  color: #c9d1d9;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.temp-icon,
+.life-icon {
+  font-size: 1.1rem;
+}
+
+.cat-description {
+  font-family: 'IM Fell English', serif;
+  font-size: 1rem;
+  color: #a8b2c0;
+  line-height: 1.6;
+  font-style: italic;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Load More Button */
+.load-more-container {
+  text-align: center;
+  margin: 4rem 0 3rem;
+}
+
+.cats-loaded-info {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 1rem;
+  color: #d4af37;
+  margin-top: 1rem;
+}
+
+.load-more-button {
+  padding: 1.2rem 3rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #d4af37 0%, #c9a726 100%);
+  color: #1a1a2e;
+  border: 3px solid #d4af37;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+
+.load-more-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, #e0b64d 0%, #d4af37 100%);
+}
+
+.load-more-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.button-icon {
+  font-size: 1.5rem;
+}
+
+.spinner {
+  font-size: 1.5rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mrs. Norris Quote */
+.norris-quote {
+  margin: 4rem 0 2rem;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%);
+  border-top: 2px solid #d4af37;
+  border-bottom: 2px solid #d4af37;
+}
+
+.quote-box {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.norris-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: cat-sway 3s ease-in-out infinite;
+}
+
+@keyframes cat-sway {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.quote-text {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.5rem;
+  color: #d4af37;
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.quote-source {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: #c9d1d9;
+  letter-spacing: 2px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .cats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cat-image-container {
+    height: 300px;
+  }
+
+  .load-more-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .quote-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .api-badge {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .logout-button {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+}
+
+/* Login Modal */
+.login-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.login-modal-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+  border: 3px solid var(--gold);
+  border-radius: 15px;
+  max-width: 450px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 50px rgba(212, 175, 55, 0.4);
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(212, 175, 55, 0.2);
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--gold);
+  color: #0d0d0d;
+  transform: rotate(90deg);
+}
+
+.login-header {
+  text-align: center;
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.login-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.login-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.login-subtitle {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  color: #c9d1d9;
+  margin-top: 0.3rem;
+}
+
+.login-body {
+  padding: 1.5rem;
+}
+
+.login-info {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.info-text {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 1rem;
+  color: #c9d1d9;
+  margin: 0;
+}
+
+.info-text a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.info-text a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form label {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.api-key-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.api-key-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.api-key-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.login-submit-button {
+  padding: 1.2rem 2rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--gold) 0%, #c29b2b 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+}
+
+.login-submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+}
+
+.login-submit-button:active {
+  transform: translateY(-1px);
+}
+
+.login-footer {
+  margin-top: 2rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.footer-note {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.9rem;
+  color: #a8b2c0;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Botón pequeño de login */
+.guest-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.small-login-button {
+  background: linear-gradient(135deg, #d4af37 0%, #c29b2b 100%);
+  color: #1a1a1a;
+  border: 2px solid #d4af37;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 15px rgba(212, 175, 55, 0.3);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.small-login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+}

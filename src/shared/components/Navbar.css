@@ -1,0 +1,133 @@
+.navbar {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #d4af37;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #d4af37;
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 1.2rem 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.logo-icon {
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.logo-text {
+  letter-spacing: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #c9d1d9;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 1.5rem 1.2rem;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.1);
+  border-bottom-color: #d4af37;
+}
+
+.nav-link.active {
+  color: #d4af37;
+  border-bottom-color: #d4af37;
+  background: rgba(212, 175, 55, 0.15);
+  font-weight: 500;
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 960px) {
+  .navbar-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+
+  .nav-link {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.5rem;
+    padding: 0.8rem 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nav-link span.nav-icon {
+    font-size: 1rem;
+  }
+  
+  .nav-link {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}

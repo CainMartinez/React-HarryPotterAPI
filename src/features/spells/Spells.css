@@ -1,0 +1,340 @@
+.spells-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.spells-count {
+  text-align: center;
+  margin: 1rem 0 2rem;
+}
+
+.spells-count p {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.2rem;
+  color: #d4af37;
+  font-style: italic;
+}
+
+.spells-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.spell-card {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+  border: 2px solid var(--spell-color, #d4af37);
+  border-radius: 15px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.spell-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--spell-color, #d4af37) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.spell-card:hover::before {
+  opacity: 0.1;
+}
+
+.spell-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 30px var(--spell-color, rgba(212, 175, 55, 0.4));
+  border-width: 3px;
+}
+
+.spell-icon {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 10px var(--spell-color, #d4af37));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.spell-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  color: var(--spell-color, #d4af37);
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px var(--spell-color, rgba(212, 175, 55, 0.5));
+}
+
+.spell-description-full {
+  font-family: 'IM Fell English', serif;
+  font-size: 1rem;
+  color: #c9d1d9;
+  line-height: 1.6;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Spell Modal */
+.spell-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.spell-modal-content {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 3px solid #d4af37;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  animation: spellAppear 0.5s ease;
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+}
+
+@keyframes spellAppear {
+  0% {
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+.spell-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(212, 175, 55, 0.2);
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.spell-modal-close:hover {
+  background: #d4af37;
+  color: #1a1a2e;
+  transform: rotate(90deg);
+}
+
+.spell-modal-header {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.spell-modal-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  animation: wand-cast 2s ease-in-out infinite;
+}
+
+@keyframes wand-cast {
+  0%, 100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.spell-modal-name {
+  font-family: 'Cinzel', serif;
+  font-size: 2.5rem;
+  color: #d4af37;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.spell-modal-body {
+  padding: 2rem;
+}
+
+.spell-modal-description {
+  background: rgba(212, 175, 55, 0.05);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.description-label {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spell-modal-description p {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.2rem;
+  color: #c9d1d9;
+  line-height: 1.8;
+  font-style: italic;
+  margin: 0;
+}
+
+.spell-practice-section {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 2px solid #d4af37;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.wand-animation {
+  position: relative;
+  height: 100px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wand-emoji {
+  font-size: 4rem;
+  animation: wand-wave-practice 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes wand-wave-practice {
+  0%, 100% {
+    transform: rotate(-20deg) translateY(0);
+  }
+  50% {
+    transform: rotate(20deg) translateY(-10px);
+  }
+}
+
+.magic-sparkles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.magic-sparkles span {
+  position: absolute;
+  font-size: 2rem;
+  animation: sparkle-fly 2s ease-in-out infinite;
+}
+
+.magic-sparkles span:nth-child(1) {
+  top: 0;
+  left: 50%;
+  animation-delay: 0s;
+}
+
+.magic-sparkles span:nth-child(2) {
+  top: 30%;
+  right: 0;
+  animation-delay: 0.2s;
+}
+
+.magic-sparkles span:nth-child(3) {
+  bottom: 30%;
+  right: 10%;
+  animation-delay: 0.4s;
+}
+
+.magic-sparkles span:nth-child(4) {
+  bottom: 0;
+  left: 40%;
+  animation-delay: 0.6s;
+}
+
+.magic-sparkles span:nth-child(5) {
+  top: 40%;
+  left: 0;
+  animation-delay: 0.8s;
+}
+
+@keyframes sparkle-fly {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(360deg);
+  }
+}
+
+.practice-text {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: #d4af37;
+  margin: 0;
+}
+
+.practice-text strong {
+  font-size: 1.6rem;
+  display: block;
+  margin-top: 0.5rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .spells-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spell-modal-name {
+    font-size: 2rem;
+  }
+
+  .spell-modal-description p {
+    font-size: 1.1rem;
+  }
+}
