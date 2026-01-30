@@ -27,36 +27,45 @@ export default function Staff() {
             className="staff-card"
             onClick={() => setSelectedStaff(member)}
           >
-            <div className="staff-image-container">
-              {member.hasImage ? (
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="staff-image"
-                />
-              ) : (
-                <div className="staff-placeholder">👨‍🏫</div>
+            <div className="staff-card-image-section">
+              <img
+                src={member.image || 'https://via.placeholder.com/200x280.png?text=Sin+Foto'}
+                alt={member.name}
+                className="staff-card-image"
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/200x280.png?text=Sin+Foto';
+                }}
+              />
+              {member.house && (
+                <div className="staff-house-tag" style={{ background: member.house.colorGradient }}>
+                  {member.house.name}
+                </div>
               )}
             </div>
 
-            <div className="staff-info">
-              <h3 className="staff-name">{member.displayName}</h3>
+            <div className="staff-card-content">
+              <h3 className="staff-card-name">{member.displayName}</h3>
               
-              {member.house && (
-                <span
-                  className="house-badge"
-                  style={{ background: member.house.colorGradient }}
-                >
-                  {member.house.name}
-                </span>
-              )}
-
-              {member.ancestry && (
-                <p className="staff-detail">
-                  <span className="detail-icon">📜</span>
-                  {member.ancestry}
-                </p>
-              )}
+              <div className="staff-card-details">
+                {member.actor && (
+                  <div className="staff-detail-item">
+                    <span className="staff-icon">🎭</span>
+                    <span className="staff-text">{member.actor}</span>
+                  </div>
+                )}
+                {member.species && (
+                  <div className="staff-detail-item">
+                    <span className="staff-icon">🧬</span>
+                    <span className="staff-text">{member.species}</span>
+                  </div>
+                )}
+                {member.ancestry && member.ancestry !== 'unknown' && (
+                  <div className="staff-detail-item">
+                    <span className="staff-icon">📜</span>
+                    <span className="staff-text">{member.ancestry}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}
@@ -64,62 +73,82 @@ export default function Staff() {
 
       {selectedStaff && (
         <div className="modal-overlay" onClick={() => setSelectedStaff(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedStaff(null)}>
+          <div className="modal-content-staff" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-staff" onClick={() => setSelectedStaff(null)}>
               ✕
             </button>
 
-            <div className="modal-header">
-              {selectedStaff.hasImage ? (
+            <div className="modal-staff-layout">
+              <div className="modal-staff-left">
                 <img
-                  src={selectedStaff.image}
+                  src={selectedStaff.image || 'https://via.placeholder.com/300x420.png?text=Sin+Foto'}
                   alt={selectedStaff.name}
-                  className="modal-image"
+                  className="modal-staff-image"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/300x420.png?text=Sin+Foto';
+                  }}
                 />
-              ) : (
-                <div className="modal-placeholder">👨‍🏫</div>
-              )}
-              
-              <h2 className="modal-title">{selectedStaff.displayName}</h2>
-            </div>
+              </div>
 
-            <div className="modal-body">
-              <div className="modal-info-grid">
-                {selectedStaff.house && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🏠 Casa:</span>
-                    <span
-                      className="house-badge-large"
-                      style={{ background: selectedStaff.house.colorGradient }}
-                    >
-                      {selectedStaff.house.name}
-                    </span>
-                  </div>
+              <div className="modal-staff-right">
+                <h2 className="modal-staff-title">{selectedStaff.displayName}</h2>
+                
+                {selectedStaff.alternateNames?.length > 0 && (
+                  <p className="modal-staff-subtitle">
+                    {selectedStaff.alternateNames.join(', ')}
+                  </p>
                 )}
 
-                {selectedStaff.wand?.wood && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🪄 Varita:</span>
-                    <span className="info-value">
-                      {selectedStaff.wand.wood}
-                      {selectedStaff.wand.core && `, ${selectedStaff.wand.core}`}
-                    </span>
-                  </div>
-                )}
-
-                {selectedStaff.patronus && (
-                  <div className="modal-info-item">
-                    <span className="info-label">✨ Patronus:</span>
-                    <span className="info-value">{selectedStaff.patronus}</span>
-                  </div>
-                )}
-
-                {selectedStaff.actor && (
-                  <div className="modal-info-item full-width">
-                    <span className="info-label">🎭 Actor:</span>
-                    <span className="info-value">{selectedStaff.actor}</span>
-                  </div>
-                )}
+                <div className="modal-staff-grid">
+                  {selectedStaff.house && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">🏠 Casa</div>
+                      <div className="modal-staff-badge" style={{ background: selectedStaff.house.colorGradient }}>
+                        {selectedStaff.house.name}
+                      </div>
+                    </div>
+                  )}
+                  {selectedStaff.actor && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">🎭 Actor</div>
+                      <div className="modal-staff-value">{selectedStaff.actor}</div>
+                    </div>
+                  )}
+                  {selectedStaff.species && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">🧬 Especie</div>
+                      <div className="modal-staff-value">{selectedStaff.species}</div>
+                    </div>
+                  )}
+                  {selectedStaff.gender && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">👤 Género</div>
+                      <div className="modal-staff-value">{selectedStaff.gender === 'male' ? 'Masculino' : 'Femenino'}</div>
+                    </div>
+                  )}
+                  {selectedStaff.ancestry && selectedStaff.ancestry !== 'unknown' && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">📜 Ascendencia</div>
+                      <div className="modal-staff-value">{selectedStaff.ancestry}</div>
+                    </div>
+                  )}
+                  {selectedStaff.patronus && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">✨ Patronus</div>
+                      <div className="modal-staff-value">{selectedStaff.patronus}</div>
+                    </div>
+                  )}
+                  {selectedStaff.wand?.wood && (
+                    <div className="modal-staff-item">
+                      <div className="modal-staff-label">🪄 Varita</div>
+                      <div className="modal-staff-value">
+                        {selectedStaff.wand.wood}
+                        {selectedStaff.wand.core && `, ${selectedStaff.wand.core}`}
+                        {selectedStaff.wand.length && `, ${selectedStaff.wand.length}"`}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

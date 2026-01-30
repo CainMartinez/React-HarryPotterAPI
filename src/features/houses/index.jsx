@@ -75,22 +75,6 @@ export default function Houses() {
               <div className="house-description">
                 <p>{house.description}</p>
               </div>
-
-              <div className="house-colors">
-                <span className="color-label">Colores:</span>
-                <div className="color-swatches">
-                  <div
-                    className="color-swatch"
-                    style={{ backgroundColor: house.primaryColor }}
-                    title={house.primaryColor}
-                  />
-                  <div
-                    className="color-swatch"
-                    style={{ backgroundColor: house.secondaryColor }}
-                    title={house.secondaryColor}
-                  />
-                </div>
-              </div>
             </div>
 
             {selectedHouse?.name === house.name && (

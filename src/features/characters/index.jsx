@@ -50,50 +50,104 @@ export default function Characters() {
             className="character-card"
             onClick={() => setSelectedCharacter(character)}
           >
-            <div className="character-image-container">
-              {character.hasImage ? (
-                <img
-                  src={character.image}
-                  alt={character.name}
-                  className="character-image"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
-                />
-              ) : null}
-              <div className="character-placeholder" style={{ display: character.hasImage ? 'none' : 'flex' }}>
-                👤
-              </div>
-            </div>
-
-            <div className="character-info">
+            <div className="character-header">
               <h3 className="character-name">{character.displayName}</h3>
-              
               {character.house && (
                 <span
-                  className="house-badge"
+                  className="house-badge-header"
                   style={{ background: character.house.colorGradient }}
                 >
                   {character.house.name}
                 </span>
               )}
+            </div>
 
-              <div className="character-details">
-                {character.species && (
-                  <p className="detail-item">
-                    <span className="detail-icon">🧬</span>
-                    {character.species}
-                  </p>
-                )}
-                
-                {character.ancestry && (
-                  <p className="detail-item">
-                    <span className="detail-icon">📜</span>
-                    {character.ancestry}
-                  </p>
-                )}
+            <div className="character-body">
+              <div className="character-image-container">
+                <img
+                  src={character.image || 'https://via.placeholder.com/300x400.png?text=Sin+Imagen'}
+                  alt={character.name}
+                  className="character-image-normal"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/300x400.png?text=Sin+Imagen';
+                  }}
+                />
               </div>
+
+              <table className="character-details-table">
+                <tbody>
+                  {character.actor && (
+                    <tr>
+                      <td className="table-label">🎭 Actor</td>
+                      <td className="table-value">{character.actor}</td>
+                    </tr>
+                  )}
+                  {character.species && (
+                    <tr>
+                      <td className="table-label">🧬 Especie</td>
+                      <td className="table-value">{character.species}</td>
+                    </tr>
+                  )}
+                  {character.gender && (
+                    <tr>
+                      <td className="table-label">👤 Género</td>
+                      <td className="table-value">{character.gender === 'male' ? 'Masculino' : 'Femenino'}</td>
+                    </tr>
+                  )}
+                  {character.dateOfBirth && (
+                    <tr>
+                      <td className="table-label">🎂 Nacimiento</td>
+                      <td className="table-value">{character.dateOfBirth}</td>
+                    </tr>
+                  )}
+                  {character.ancestry && character.ancestry !== 'unknown' && (
+                    <tr>
+                      <td className="table-label">📜 Ascendencia</td>
+                      <td className="table-value">{character.ancestry}</td>
+                    </tr>
+                  )}
+                  {character.eyeColour && (
+                    <tr>
+                      <td className="table-label">👁️ Ojos</td>
+                      <td className="table-value">{character.eyeColour}</td>
+                    </tr>
+                  )}
+                  {character.hairColour && (
+                    <tr>
+                      <td className="table-label">💈 Cabello</td>
+                      <td className="table-value">{character.hairColour}</td>
+                    </tr>
+                  )}
+                  {character.patronus && (
+                    <tr>
+                      <td className="table-label">✨ Patronus</td>
+                      <td className="table-value">{character.patronus}</td>
+                    </tr>
+                  )}
+                  {character.wand?.wood && (
+                    <tr>
+                      <td className="table-label">🪄 Varita</td>
+                      <td className="table-value">
+                        {character.wand.wood}
+                        {character.wand.core && `, ${character.wand.core}`}
+                        {character.wand.length && `, ${character.wand.length}"`}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            
+            <div className="character-footer">
+              {character.isStudent && (
+                <span className="role-badge student">🎓 Estudiante</span>
+              )}
+              {character.isStaff && (
+                <span className="role-badge staff">👨‍🏫 Personal</span>
+              )}
+              {!character.isStudent && !character.isStaff && (
+                <span className="role-badge other">✨ Personaje</span>
+              )}
             </div>
           </div>
         ))}
@@ -106,123 +160,116 @@ export default function Characters() {
               ✕
             </button>
 
-            <div className="modal-header">
-              {selectedCharacter.hasImage ? (
-                <img
-                  src={selectedCharacter.image}
-                  alt={selectedCharacter.name}
-                  className="modal-image"
-                />
-              ) : (
-                <div className="modal-placeholder">👤</div>
-              )}
-              
-              <div className="modal-title-section">
-                <h2 className="modal-title">{selectedCharacter.displayName}</h2>
-                {selectedCharacter.alternateNames?.length > 0 && (
-                  <p className="modal-alternate">
-                    También conocido como: {selectedCharacter.alternateNames.join(', ')}
-                  </p>
-                )}
+            <div className="modal-horizontal-layout">
+              <div className="modal-left-section">
+                <div className="modal-image-container">
+                  <div className="modal-diamond-frame">
+                    <img
+                      src={selectedCharacter.image || 'https://via.placeholder.com/400x400.png?text=Sin+Imagen'}
+                      alt={selectedCharacter.name}
+                      className="modal-image-diamond"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/400x400.png?text=Sin+Imagen';
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div className="modal-body">
-              <div className="modal-info-grid">
-                {selectedCharacter.house && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🏠 Casa:</span>
+              <div className="modal-right-section">
+                <div className="modal-header-new">
+                  <h2 className="modal-title-new">{selectedCharacter.displayName}</h2>
+                  {selectedCharacter.alternateNames?.length > 0 && (
+                    <p className="modal-alternate-new">
+                      {selectedCharacter.alternateNames.join(', ')}
+                    </p>
+                  )}
+                  {selectedCharacter.house && (
                     <span
-                      className="house-badge-large"
+                      className="modal-house-badge"
                       style={{ background: selectedCharacter.house.colorGradient }}
                     >
                       {selectedCharacter.house.name}
                     </span>
-                  </div>
-                )}
-
-                {selectedCharacter.species && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🧬 Especie:</span>
-                    <span className="info-value">{selectedCharacter.species}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.gender && (
-                  <div className="modal-info-item">
-                    <span className="info-label">👤 Género:</span>
-                    <span className="info-value">{selectedCharacter.gender}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.dateOfBirth && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🎂 Nacimiento:</span>
-                    <span className="info-value">{selectedCharacter.dateOfBirth}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.ancestry && (
-                  <div className="modal-info-item">
-                    <span className="info-label">📜 Ascendencia:</span>
-                    <span className="info-value">{selectedCharacter.ancestry}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.eyeColour && (
-                  <div className="modal-info-item">
-                    <span className="info-label">👁️ Ojos:</span>
-                    <span className="info-value">{selectedCharacter.eyeColour}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.hairColour && (
-                  <div className="modal-info-item">
-                    <span className="info-label">💈 Cabello:</span>
-                    <span className="info-value">{selectedCharacter.hairColour}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.wand?.wood && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🪄 Varita:</span>
-                    <span className="info-value">
-                      {selectedCharacter.wand.wood}
-                      {selectedCharacter.wand.core && `, ${selectedCharacter.wand.core}`}
-                      {selectedCharacter.wand.length && `, ${selectedCharacter.wand.length}"`}
-                    </span>
-                  </div>
-                )}
-
-                {selectedCharacter.patronus && (
-                  <div className="modal-info-item">
-                    <span className="info-label">✨ Patronus:</span>
-                    <span className="info-value">{selectedCharacter.patronus}</span>
-                  </div>
-                )}
-
-                <div className="modal-info-item">
-                  <span className="info-label">🧙 Rol:</span>
-                  <span className="info-value">
-                    {selectedCharacter.isStudent ? '🎓 Estudiante' : ''}
-                    {selectedCharacter.isStaff ? '👨‍🏫 Personal' : ''}
-                    {!selectedCharacter.isStudent && !selectedCharacter.isStaff ? 'Personaje' : ''}
-                  </span>
+                  )}
                 </div>
 
-                {selectedCharacter.actor && (
-                  <div className="modal-info-item full-width">
-                    <span className="info-label">🎭 Interpretado por:</span>
-                    <span className="info-value">{selectedCharacter.actor}</span>
-                  </div>
-                )}
-
-                {selectedCharacter.alternateActors?.length > 0 && (
-                  <div className="modal-info-item full-width">
-                    <span className="info-label">🎬 Otros actores:</span>
-                    <span className="info-value">{selectedCharacter.alternateActors.join(', ')}</span>
-                  </div>
-                )}
+                <table className="modal-details-table">
+                  <tbody>
+                    {selectedCharacter.actor && (
+                      <tr>
+                        <td className="modal-table-label">🎭 Actor</td>
+                        <td className="modal-table-value">{selectedCharacter.actor}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.species && (
+                      <tr>
+                        <td className="modal-table-label">🧬 Especie</td>
+                        <td className="modal-table-value">{selectedCharacter.species}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.gender && (
+                      <tr>
+                        <td className="modal-table-label">👤 Género</td>
+                        <td className="modal-table-value">{selectedCharacter.gender === 'male' ? 'Masculino' : 'Femenino'}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.dateOfBirth && (
+                      <tr>
+                        <td className="modal-table-label">🎂 Nacimiento</td>
+                        <td className="modal-table-value">{selectedCharacter.dateOfBirth}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.ancestry && selectedCharacter.ancestry !== 'unknown' && (
+                      <tr>
+                        <td className="modal-table-label">📜 Ascendencia</td>
+                        <td className="modal-table-value">{selectedCharacter.ancestry}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.eyeColour && (
+                      <tr>
+                        <td className="modal-table-label">👁️ Ojos</td>
+                        <td className="modal-table-value">{selectedCharacter.eyeColour}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.hairColour && (
+                      <tr>
+                        <td className="modal-table-label">💈 Cabello</td>
+                        <td className="modal-table-value">{selectedCharacter.hairColour}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.patronus && (
+                      <tr>
+                        <td className="modal-table-label">✨ Patronus</td>
+                        <td className="modal-table-value">{selectedCharacter.patronus}</td>
+                      </tr>
+                    )}
+                    {selectedCharacter.wand?.wood && (
+                      <tr>
+                        <td className="modal-table-label">🪄 Varita</td>
+                        <td className="modal-table-value">
+                          {selectedCharacter.wand.wood}
+                          {selectedCharacter.wand.core && `, ${selectedCharacter.wand.core}`}
+                          {selectedCharacter.wand.length && `, ${selectedCharacter.wand.length}"`}
+                        </td>
+                      </tr>
+                    )}
+                    <tr>
+                      <td className="modal-table-label">🧙 Rol</td>
+                      <td className="modal-table-value">
+                        {selectedCharacter.isStudent ? '🎓 Estudiante' : ''}
+                        {selectedCharacter.isStaff ? '👨‍🏫 Personal' : ''}
+                        {!selectedCharacter.isStudent && !selectedCharacter.isStaff ? '✨ Personaje' : ''}
+                      </td>
+                    </tr>
+                    {selectedCharacter.alternateActors?.length > 0 && (
+                      <tr>
+                        <td className="modal-table-label">🎬 Otros</td>
+                        <td className="modal-table-value">{selectedCharacter.alternateActors.join(', ')}</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

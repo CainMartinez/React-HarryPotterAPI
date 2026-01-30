@@ -4,197 +4,332 @@
   padding: 2rem;
 }
 
-.staff-count {
-  text-align: center;
-  margin: 1.5rem 0;
-}
-
-.staff-count p {
-  font-family: 'IM Fell English', serif;
-  font-size: 1.2rem;
-  color: #d4af37;
-  font-style: italic;
-}
-
 .staff-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
+/* Cards horizontales modernas */
 .staff-card {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
-  border: 3px solid #d4af37;
-  border-radius: 15px;
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.95) 0%, rgba(20, 25, 45, 0.98) 100%);
+  border: 1px solid rgba(100, 200, 255, 0.3);
+  border-radius: 20px;
   overflow: hidden;
-  transition: all 0.4s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(100, 200, 255, 0.1) inset;
+  height: 200px;
 }
 
-.staff-card::before {
-  content: '';
+.staff-card:hover {
+  transform: translateX(8px);
+  border-color: rgba(100, 200, 255, 0.6);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6),
+              0 0 40px rgba(100, 200, 255, 0.2),
+              0 0 0 1px rgba(100, 200, 255, 0.3) inset;
+}
+
+.staff-card-image-section {
+  position: relative;
+  width: 160px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(100, 200, 255, 0.1) 0%, rgba(50, 100, 200, 0.1) 100%);
+}
+
+.staff-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.95) contrast(1.1);
+  transition: all 0.4s ease;
+}
+
+.staff-card:hover .staff-card-image {
+  filter: brightness(1.05) contrast(1.15);
+  transform: scale(1.05);
+}
+
+.staff-house-tag {
   position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.staff-card-content {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.staff-card-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: #64c8ff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(100, 200, 255, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.staff-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.staff-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  color: #b8c9d9;
+}
+
+.staff-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.staff-text {
+  line-height: 1.4;
+}
+
+/* Modal de Staff */
+.modal-overlay {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.staff-card:hover::before {
-  opacity: 1;
-}
-
-.staff-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
-  border-width: 4px;
-}
-
-.staff-image-container {
-  position: relative;
-  height: 350px;
-  background: linear-gradient(180deg, rgba(42, 42, 42, 0.5) 0%, rgba(26, 26, 46, 0.8) 100%);
-  overflow: hidden;
-}
-
-.staff-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.staff-card:hover .staff-image {
-  transform: scale(1.1);
-}
-
-.staff-image-placeholder {
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a2e 100%);
-}
-
-.placeholder-icon {
-  font-size: 6rem;
-  opacity: 0.3;
-}
-
-.staff-role-badge {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.7rem 1.5rem;
-  background: linear-gradient(135deg, #d4af37 0%, #c9a726 100%);
-  color: #1a1a2e;
-  font-family: 'Cinzel', serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  border-radius: 25px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.staff-info {
+  z-index: 2000;
   padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content-staff {
+  background: linear-gradient(145deg, rgba(30, 30, 50, 0.98) 0%, rgba(20, 25, 45, 0.98) 100%);
+  border: 2px solid rgba(100, 200, 255, 0.5);
+  border-radius: 24px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
   position: relative;
-  z-index: 2;
+  animation: slideIn 0.4s ease;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8),
+              0 0 60px rgba(100, 200, 255, 0.2);
 }
 
-.staff-name {
-  font-family: 'Cinzel', serif;
-  font-size: 1.7rem;
-  color: #d4af37;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+@keyframes slideIn {
+  from {
+    transform: translateY(60px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
-.staff-actor {
-  font-family: 'IM Fell English', serif;
-  font-size: 1rem;
-  color: #a8b2c0;
-  font-style: italic;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.staff-house {
+.modal-close-staff {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(100, 200, 255, 0.2);
+  border: 2px solid #64c8ff;
+  color: #64c8ff;
+  font-size: 1.8rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  padding: 1rem 1.5rem;
-  border: 3px solid rgba(255, 255, 255, 0.4);
-  border-radius: 15px;
-  margin-bottom: 1.5rem;
-  font-family: 'Cinzel', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.2) inset;
-  text-transform: uppercase;
+  line-height: 1;
 }
 
-.house-icon {
-  font-size: 1.5rem;
+.modal-close-staff:hover {
+  background: #64c8ff;
+  color: #1a1a2e;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 20px rgba(100, 200, 255, 0.6);
 }
 
-.staff-details {
+.modal-staff-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  padding: 2.5rem;
+}
+
+.modal-staff-left {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.modal-staff-image {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 3px solid rgba(100, 200, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+              0 0 40px rgba(100, 200, 255, 0.2);
+  filter: brightness(1) contrast(1.1);
+}
+
+.modal-staff-right {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
+  gap: 1.5rem;
 }
 
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.8rem 1.2rem;
-  background: rgba(212, 175, 55, 0.08);
-  border-left: 3px solid #d4af37;
-  border-radius: 5px;
-  font-family: 'Philosopher', sans-serif;
-  font-size: 0.95rem;
-  color: #c9d1d9;
+.modal-staff-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  color: #64c8ff;
+  margin: 0;
+  text-shadow: 0 3px 12px rgba(100, 200, 255, 0.5);
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+.modal-staff-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.1rem;
+  color: #8ba3b8;
+  font-style: italic;
+  margin: -0.5rem 0 0 0;
+}
+
+.modal-staff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.modal-staff-item {
+  background: rgba(100, 200, 255, 0.05);
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
   transition: all 0.3s ease;
 }
 
-.detail-item:hover {
-  background: rgba(212, 175, 55, 0.15);
-  transform: translateX(5px);
+.modal-staff-item:hover {
+  background: rgba(100, 200, 255, 0.1);
+  border-color: rgba(100, 200, 255, 0.4);
+  transform: translateY(-2px);
 }
 
-.detail-icon {
-  font-size: 1.3rem;
+.modal-staff-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: #64c8ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.modal-staff-value {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 1rem;
+  color: #d8e4f0;
+  line-height: 1.5;
+  text-transform: capitalize;
+}
+
+.modal-staff-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5),
+              0 0 0 2px rgba(255, 255, 255, 0.2) inset;
+  display: inline-block;
 }
 
 /* Responsive */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .staff-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .staff-card {
+    height: auto;
+    flex-direction: column;
   }
 
-  .staff-name {
-    font-size: 1.4rem;
+  .staff-card-image-section {
+    width: 100%;
+    height: 220px;
   }
 
-  .staff-image-container {
-    height: 300px;
+  .modal-staff-layout {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .modal-staff-left {
+    width: 100%;
+  }
+
+  .modal-staff-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .staff-card-content {
+    padding: 1.2rem;
+  }
+
+  .staff-card-name {
+    font-size: 1.3rem;
+  }
+
+  .modal-staff-title {
+    font-size: 1.8rem;
   }
 }

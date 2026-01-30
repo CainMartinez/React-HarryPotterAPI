@@ -103,10 +103,6 @@ export default function Home() {
           <p className="quote-author">— Albus Dumbledore</p>
         </div>
       </div>
-
-      <footer className="home-footer">
-        <p>✨ Creado con magia y React ✨</p>
-      </footer>
     </div>
   );
 }

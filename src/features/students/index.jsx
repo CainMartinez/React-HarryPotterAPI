@@ -27,36 +27,47 @@ export default function Students() {
             className="student-card"
             onClick={() => setSelectedStudent(student)}
           >
-            <div className="student-image-container">
-              {student.hasImage ? (
+            <div className="student-hexagon-wrapper">
+              <div className="student-hexagon">
                 <img
-                  src={student.image}
+                  src={student.image || 'https://via.placeholder.com/240x240.png?text=Sin+Foto'}
                   alt={student.name}
-                  className="student-image"
+                  className="student-hexagon-image"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/240x240.png?text=Sin+Foto';
+                  }}
                 />
-              ) : (
-                <div className="student-placeholder">🎓</div>
-              )}
+              </div>
             </div>
 
-            <div className="student-info">
-              <h3 className="student-name">{student.displayName}</h3>
+            <div className="student-card-info">
+              <h3 className="student-card-name">{student.displayName}</h3>
               
               {student.house && (
-                <span
-                  className="house-badge"
-                  style={{ background: student.house.colorGradient }}
-                >
-                  {student.house.name}
-                </span>
+                <div className="student-house-container">
+                  <span
+                    className="student-house-tag"
+                    style={{ background: student.house.colorGradient }}
+                  >
+                    {student.house.name}
+                  </span>
+                </div>
               )}
 
-              {student.dateOfBirth && (
-                <p className="student-detail">
-                  <span className="detail-icon">🎂</span>
-                  {student.dateOfBirth}
-                </p>
-              )}
+              <div className="student-meta">
+                {student.dateOfBirth && (
+                  <div className="student-meta-item">
+                    <span>🎂</span>
+                    <span>{student.dateOfBirth}</span>
+                  </div>
+                )}
+                {student.actor && (
+                  <div className="student-meta-item">
+                    <span>🎭</span>
+                    <span>{student.actor}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}
@@ -64,53 +75,102 @@ export default function Students() {
 
       {selectedStudent && (
         <div className="modal-overlay" onClick={() => setSelectedStudent(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedStudent(null)}>
+          <div className="modal-content-student" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-student" onClick={() => setSelectedStudent(null)}>
               ✕
             </button>
 
-            <div className="modal-header">
-              {selectedStudent.hasImage ? (
+            <div className="modal-student-hero">
+              <div className="modal-student-image-circle">
                 <img
-                  src={selectedStudent.image}
+                  src={selectedStudent.image || 'https://via.placeholder.com/280x280.png?text=Sin+Foto'}
                   alt={selectedStudent.name}
-                  className="modal-image"
+                  className="modal-circle-img"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/280x280.png?text=Sin+Foto';
+                  }}
                 />
-              ) : (
-                <div className="modal-placeholder">🎓</div>
-              )}
+              </div>
               
-              <h2 className="modal-title">{selectedStudent.displayName}</h2>
-            </div>
+              <div className="modal-student-header">
+                <h2 className="modal-student-name">{selectedStudent.displayName}</h2>
+                
+                {selectedStudent.alternateNames?.length > 0 && (
+                  <p className="modal-student-alt">
+                    {selectedStudent.alternateNames.join(' • ')}
+                  </p>
+                )}
 
-            <div className="modal-body">
-              <div className="modal-info-grid">
                 {selectedStudent.house && (
-                  <div className="modal-info-item">
-                    <span className="info-label">🏠 Casa:</span>
-                    <span
-                      className="house-badge-large"
-                      style={{ background: selectedStudent.house.colorGradient }}
-                    >
-                      {selectedStudent.house.name}
-                    </span>
-                  </div>
-                )}
-
-                {selectedStudent.patronus && (
-                  <div className="modal-info-item">
-                    <span className="info-label">✨ Patronus:</span>
-                    <span className="info-value">{selectedStudent.patronus}</span>
-                  </div>
-                )}
-
-                {selectedStudent.actor && (
-                  <div className="modal-info-item full-width">
-                    <span className="info-label">🎭 Actor:</span>
-                    <span className="info-value">{selectedStudent.actor}</span>
-                  </div>
+                  <span
+                    className="modal-student-house-big"
+                    style={{ background: selectedStudent.house.colorGradient }}
+                  >
+                    {selectedStudent.house.name}
+                  </span>
                 )}
               </div>
+            </div>
+
+            <div className="modal-student-details">
+              {selectedStudent.actor && (
+                <div className="student-detail-card">
+                  <div className="detail-card-icon">🎭</div>
+                  <div className="detail-card-content">
+                    <div className="detail-card-label">Interpretado por</div>
+                    <div className="detail-card-value">{selectedStudent.actor}</div>
+                  </div>
+                </div>
+              )}
+              {selectedStudent.species && (
+                <div className="student-detail-card">
+                  <div className="detail-card-icon">🧬</div>
+                  <div className="detail-card-content">
+                    <div className="detail-card-label">Especie</div>
+                    <div className="detail-card-value">{selectedStudent.species}</div>
+                  </div>
+                </div>
+              )}
+              {selectedStudent.gender && (
+                <div className="student-detail-card">
+                  <div className="detail-card-icon">👤</div>
+                  <div className="detail-card-content">
+                    <div className="detail-card-label">Género</div>
+                    <div className="detail-card-value">{selectedStudent.gender === 'male' ? 'Masculino' : 'Femenino'}</div>
+                  </div>
+                </div>
+              )}
+              {selectedStudent.dateOfBirth && (
+                <div className="student-detail-card">
+                  <div className="detail-card-icon">🎂</div>
+                  <div className="detail-card-content">
+                    <div className="detail-card-label">Nacimiento</div>
+                    <div className="detail-card-value">{selectedStudent.dateOfBirth}</div>
+                  </div>
+                </div>
+              )}
+              {selectedStudent.patronus && (
+                <div className="student-detail-card">
+                  <div className="detail-card-icon">✨</div>
+                  <div className="detail-card-content">
+                    <div className="detail-card-label">Patronus</div>
+                    <div className="detail-card-value">{selectedStudent.patronus}</div>
+                  </div>
+                </div>
+              )}
+              {selectedStudent.wand?.wood && (
+                <div className="student-detail-card">
+                  <div className="detail-card-icon">🪄</div>
+                  <div className="detail-card-content">
+                    <div className="detail-card-label">Varita</div>
+                    <div className="detail-card-value">
+                      {selectedStudent.wand.wood}
+                      {selectedStudent.wand.core && `, ${selectedStudent.wand.core}`}
+                      {selectedStudent.wand.length && `, ${selectedStudent.wand.length}"`}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
