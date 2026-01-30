@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CacheProvider } from './core/context';
 import { Navbar } from './shared/components';
@@ -12,10 +12,56 @@ import Cats from './features/cats';
 import './App.css';
 
 function App() {
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    // Intentar reproducir el audio cuando se carga la página
+    const playAudio = async () => {
+      if (audioRef.current) {
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (error) {
+          console.log('Autoplay bloqueado por el navegador. El usuario debe interactuar primero.');
+        }
+      }
+    };
+    playAudio();
+  }, []);
+
+  const toggleMusic = async () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (error) {
+          console.log('Error al reproducir música:', error);
+        }
+      }
+    }
+  };
+
   return (
     <CacheProvider>
       <Router>
         <div className="App">
+          <audio ref={audioRef} loop>
+            <source src="/music.mp3" type="audio/mpeg" />
+          </audio>
+          
+          <button 
+            className="music-toggle" 
+            onClick={toggleMusic}
+            aria-label={isPlaying ? 'Pausar música' : 'Reproducir música'}
+          >
+            {isPlaying ? '🎵' : '🔇'}
+          </button>
+
           <Navbar />
           <main className="main-content">
             <Routes>
