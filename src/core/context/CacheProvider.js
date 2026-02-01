@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { Character } from '../models/Character';
+import { Spell } from '../models/Spell';
 
 /**
  * Contexto para el sistema de caché
@@ -7,6 +9,31 @@ const CacheContext = createContext(null);
 
 const STORAGE_KEY = 'hp-app-cache';
 const STORAGE_VERSION = '1.0';
+
+/**
+ * Reconstruye objetos desde JSON plano a clases
+ */
+function reconstructObjects(data, key) {
+  if (!data || !Array.isArray(data)) return data;
+  
+  try {
+    // Reconstruir personajes
+    if (key.startsWith('characters:')) {
+      return data.map(item => new Character(item));
+    }
+    
+    // Reconstruir hechizos
+    if (key.startsWith('spells:')) {
+      return data.map(item => new Spell(item));
+    }
+    
+    // Para otros tipos, devolver como están
+    return data;
+  } catch (error) {
+    console.error('[CacheProvider] Error reconstructing objects:', error);
+    return data;
+  }
+}
 
 /**
  * Proveedor de caché con almacenamiento en memoria y persistencia en localStorage
@@ -99,7 +126,10 @@ export function CacheProvider({ children }) {
     }
 
     console.log(`[CacheProvider] Cache hit: ${key}`);
-    return entry.data;
+    
+    // Reconstruir objetos si es necesario
+    const reconstructed = reconstructObjects(entry.data, key);
+    return reconstructed;
   }, [cache, persistCache]);
 
   /**
