@@ -12,11 +12,6 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          <span className="logo-icon">⚡</span>
-          <span className="logo-text">Mundo Mágico</span>
-        </Link>
-        
         <ul className="nav-menu">
           <li className="nav-item">
             <Link to="/" className={`nav-link ${isActive('/')}`}>
