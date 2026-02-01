@@ -37,17 +37,20 @@
 .staff-card-image-section {
   position: relative;
   width: 160px;
+  height: 200px;
   flex-shrink: 0;
   background: linear-gradient(135deg, rgba(100, 200, 255, 0.1) 0%, rgba(50, 100, 200, 0.1) 100%);
+  overflow: hidden;
 }
 
 .staff-card-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   filter: brightness(0.95) contrast(1.1);
   transition: all 0.4s ease;
+  display: block;
 }
 
 .staff-card:hover .staff-card-image {
@@ -126,7 +129,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 9999;
   padding: 2rem;
   animation: fadeIn 0.3s ease;
 }
@@ -168,9 +171,9 @@
   background: rgba(100, 200, 255, 0.2);
   border: 2px solid #64c8ff;
   color: #64c8ff;
-  font-size: 1.8rem;
-  width: 45px;
-  height: 45px;
+  font-size: 1.5rem;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -192,11 +195,11 @@
   display: flex;
   flex-direction: row;
   gap: 2.5rem;
-  padding: 2.5rem;
+  padding: 1.8rem;
 }
 
 .modal-staff-left {
-  width: 280px;
+  width: 200px;
   flex-shrink: 0;
 }
 
@@ -214,12 +217,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .modal-staff-title {
   font-family: 'Cinzel', serif;
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   color: #64c8ff;
   margin: 0;
   text-shadow: 0 3px 12px rgba(100, 200, 255, 0.5);
@@ -229,7 +232,7 @@
 
 .modal-staff-subtitle {
   font-family: 'IM Fell English', serif;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   color: #8ba3b8;
   font-style: italic;
   margin: -0.5rem 0 0 0;
@@ -238,7 +241,7 @@
 .modal-staff-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 .modal-staff-item {
@@ -257,7 +260,7 @@
 
 .modal-staff-label {
   font-family: 'Cinzel', serif;
-  font-size: 0.85rem;
+  font-size: 0.65rem;
   color: #64c8ff;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -267,7 +270,7 @@
 
 .modal-staff-value {
   font-family: 'Philosopher', sans-serif;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #d8e4f0;
   line-height: 1.5;
   text-transform: capitalize;
@@ -275,7 +278,7 @@
 
 .modal-staff-badge {
   font-family: 'Cinzel', serif;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   color: white;

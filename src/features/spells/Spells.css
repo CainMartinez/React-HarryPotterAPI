@@ -83,11 +83,19 @@
   text-shadow: 0 0 15px var(--spell-color, rgba(212, 175, 55, 0.5));
 }
 
-.spell-description-full {
+.spell-description {
   font-family: 'IM Fell English', serif;
   font-size: 1rem;
   color: #c9d1d9;
   line-height: 1.6;
+  text-align: center;
+  font-style: italic;
+}
+
+.spell-no-description {
+  font-family: 'Philosopher', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(201, 209, 217, 0.5);
   text-align: center;
   font-style: italic;
 }
@@ -103,7 +111,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 9999;
   padding: 2rem;
   animation: fadeIn 0.3s ease;
   backdrop-filter: blur(5px);

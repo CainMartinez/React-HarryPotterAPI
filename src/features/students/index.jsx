@@ -30,11 +30,11 @@ export default function Students() {
             <div className="student-hexagon-wrapper">
               <div className="student-hexagon">
                 <img
-                  src={student.image || 'https://via.placeholder.com/240x240.png?text=Sin+Foto'}
+                  src={student.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.displayName)}&size=240&background=c864ff&color=fff&bold=true`}
                   alt={student.name}
                   className="student-hexagon-image"
                   onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/240x240.png?text=Sin+Foto';
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(student.displayName)}&size=240&background=c864ff&color=fff&bold=true`;
                   }}
                 />
               </div>
@@ -83,11 +83,11 @@ export default function Students() {
             <div className="modal-student-hero">
               <div className="modal-student-image-circle">
                 <img
-                  src={selectedStudent.image || 'https://via.placeholder.com/280x280.png?text=Sin+Foto'}
+                  src={selectedStudent.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedStudent.displayName)}&size=280&background=c864ff&color=fff&bold=true`}
                   alt={selectedStudent.name}
                   className="modal-circle-img"
                   onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/280x280.png?text=Sin+Foto';
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedStudent.displayName)}&size=280&background=c864ff&color=fff&bold=true`;
                   }}
                 />
               </div>
@@ -113,15 +113,6 @@ export default function Students() {
             </div>
 
             <div className="modal-student-details">
-              {selectedStudent.actor && (
-                <div className="student-detail-card">
-                  <div className="detail-card-icon">🎭</div>
-                  <div className="detail-card-content">
-                    <div className="detail-card-label">Interpretado por</div>
-                    <div className="detail-card-value">{selectedStudent.actor}</div>
-                  </div>
-                </div>
-              )}
               {selectedStudent.species && (
                 <div className="student-detail-card">
                   <div className="detail-card-icon">🧬</div>

@@ -65,11 +65,11 @@ export default function Characters() {
             <div className="character-body">
               <div className="character-image-container">
                 <img
-                  src={character.image || 'https://via.placeholder.com/300x400.png?text=Sin+Imagen'}
+                  src={character.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(character.displayName)}&size=300&background=d4af37&color=1a1a2e&bold=true`}
                   alt={character.name}
                   className="character-image-normal"
                   onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/300x400.png?text=Sin+Imagen';
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(character.displayName)}&size=300&background=d4af37&color=1a1a2e&bold=true`;
                   }}
                 />
               </div>
@@ -165,11 +165,11 @@ export default function Characters() {
                 <div className="modal-image-container">
                   <div className="modal-diamond-frame">
                     <img
-                      src={selectedCharacter.image || 'https://via.placeholder.com/400x400.png?text=Sin+Imagen'}
+                      src={selectedCharacter.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedCharacter.displayName)}&size=400&background=d4af37&color=1a1a2e&bold=true`}
                       alt={selectedCharacter.name}
                       className="modal-image-diamond"
                       onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/400x400.png?text=Sin+Imagen';
+                        e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedCharacter.displayName)}&size=400&background=d4af37&color=1a1a2e&bold=true`;
                       }}
                     />
                   </div>

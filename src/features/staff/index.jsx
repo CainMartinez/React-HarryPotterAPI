@@ -29,11 +29,11 @@ export default function Staff() {
           >
             <div className="staff-card-image-section">
               <img
-                src={member.image || 'https://via.placeholder.com/200x280.png?text=Sin+Foto'}
+                src={member.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=200&background=64c8ff&color=1a1a2e&bold=true`}
                 alt={member.name}
                 className="staff-card-image"
                 onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/200x280.png?text=Sin+Foto';
+                  e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=200&background=64c8ff&color=1a1a2e&bold=true`;
                 }}
               />
               {member.house && (
@@ -81,11 +81,11 @@ export default function Staff() {
             <div className="modal-staff-layout">
               <div className="modal-staff-left">
                 <img
-                  src={selectedStaff.image || 'https://via.placeholder.com/300x420.png?text=Sin+Foto'}
+                  src={selectedStaff.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedStaff.displayName)}&size=300&background=64c8ff&color=1a1a2e&bold=true`}
                   alt={selectedStaff.name}
                   className="modal-staff-image"
                   onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/300x420.png?text=Sin+Foto';
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedStaff.displayName)}&size=300&background=64c8ff&color=1a1a2e&bold=true`;
                   }}
                 />
               </div>
