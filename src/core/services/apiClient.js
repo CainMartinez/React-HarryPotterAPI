@@ -36,13 +36,20 @@ class APIClient {
     const url = `${this.baseURL}${endpoint}`;
     const controller = new AbortController();
     const { signal: externalSignal, ...restOptions } = options;
+
+    if (externalSignal?.aborted) {
+      return {
+        data: null,
+        error: 'La petición fue cancelada o excedió el tiempo límite'
+      };
+    }
     
     // Timeout automático
-    const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+    let timeoutId;
 
     // Combinar señales de abort (externa + timeout)
     if (externalSignal) {
-      externalSignal.addEventListener('abort', () => controller.abort());
+      externalSignal.addEventListener('abort', () => controller.abort(), { once: true });
     }
 
     const config = {
@@ -58,7 +65,19 @@ class APIClient {
 
     try {
       console.log(`[APIClient] Fetching: ${url}`);
-      const response = await fetch(url, config);
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => {
+          controller.abort();
+          const abortError = new Error('Request timed out');
+          abortError.name = 'AbortError';
+          reject(abortError);
+        }, this.timeout);
+      });
+
+      const response = await Promise.race([
+        fetch(url, config),
+        timeoutPromise
+      ]);
       clearTimeout(timeoutId);
       
       console.log(`[APIClient] Response status: ${response.status} ${response.statusText}`);

@@ -9,7 +9,7 @@
  */
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { ImageWithFallback } from '../ImageWithFallback';
+import { ImageWithFallback } from './ImageWithFallback';
 
 describe('ImageWithFallback', () => {
   test('debe mostrar imagen cuando carga correctamente', async () => {

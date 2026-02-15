@@ -8,9 +8,9 @@
  * - Manejo de falta de conexión
  * - Retry logic con exponential backoff
  */
-import APIClient from '../apiClient';
+import APIClient from './apiClient';
 import { server } from '../../mocks/server';
-import { http, HttpResponse } from 'msw';
+import { rest } from 'msw';
 
 describe('APIClient', () => {
   let client;
@@ -65,9 +65,12 @@ describe('APIClient', () => {
       
       // Mock de endpoint lento
       server.use(
-        http.get('https://hp-api.onrender.com/api/slow', async () => {
-          await new Promise(resolve => setTimeout(resolve, 200));
-          return HttpResponse.json({ data: 'slow' });
+        rest.get('https://hp-api.onrender.com/api/slow', (req, res, ctx) => {
+          return res(
+            ctx.delay(200),
+            ctx.status(200),
+            ctx.json({ data: 'slow' })
+          );
         })
       );
       
@@ -84,12 +87,12 @@ describe('APIClient', () => {
       
       // Mock que falla 2 veces y luego tiene éxito
       server.use(
-        http.get('https://hp-api.onrender.com/api/flaky', () => {
+        rest.get('https://hp-api.onrender.com/api/flaky', (req, res, ctx) => {
           attemptCount++;
           if (attemptCount < 3) {
-            return new HttpResponse(null, { status: 500 });
+            return res(ctx.status(500));
           }
-          return HttpResponse.json({ success: true });
+          return res(ctx.status(200), ctx.json({ success: true }));
         })
       );
       
@@ -104,9 +107,9 @@ describe('APIClient', () => {
       let attemptCount = 0;
       
       server.use(
-        http.get('https://hp-api.onrender.com/api/bad-request', () => {
+        rest.get('https://hp-api.onrender.com/api/bad-request', (req, res, ctx) => {
           attemptCount++;
-          return new HttpResponse(null, { status: 400 });
+          return res(ctx.status(400));
         })
       );
       
@@ -121,9 +124,9 @@ describe('APIClient', () => {
   describe('post()', () => {
     test('debe realizar peticiones POST con body', async () => {
       server.use(
-        http.post('https://hp-api.onrender.com/api/test', async ({ request }) => {
-          const body = await request.json();
-          return HttpResponse.json({ received: body });
+        rest.post('https://hp-api.onrender.com/api/test', async (req, res, ctx) => {
+          const body = await req.json();
+          return res(ctx.status(200), ctx.json({ received: body }));
         })
       );
       

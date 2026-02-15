@@ -6,7 +6,7 @@
  * 
  * @see https://mswjs.io/
  */
-import { http, HttpResponse } from 'msw';
+import { rest } from 'msw';
 
 /**
  * Datos de prueba - Personajes
@@ -77,58 +77,61 @@ const mockSpells = [
  */
 export const handlers = [
   // GET /api/characters - Todos los personajes
-  http.get('https://hp-api.onrender.com/api/characters', () => {
+  rest.get('https://hp-api.onrender.com/api/characters', (req, res, ctx) => {
     console.log('[MSW] Mocked GET /api/characters');
-    return HttpResponse.json(mockCharacters);
+    return res(ctx.status(200), ctx.json(mockCharacters));
   }),
 
   // GET /api/characters/students - Solo estudiantes
-  http.get('https://hp-api.onrender.com/api/characters/students', () => {
+  rest.get('https://hp-api.onrender.com/api/characters/students', (req, res, ctx) => {
     console.log('[MSW] Mocked GET /api/characters/students');
     const students = mockCharacters.filter(c => c.hogwartsStudent);
-    return HttpResponse.json(students);
+    return res(ctx.status(200), ctx.json(students));
   }),
 
   // GET /api/characters/staff - Solo staff
-  http.get('https://hp-api.onrender.com/api/characters/staff', () => {
+  rest.get('https://hp-api.onrender.com/api/characters/staff', (req, res, ctx) => {
     console.log('[MSW] Mocked GET /api/characters/staff');
     const staff = mockCharacters.filter(c => c.hogwartsStaff);
-    return HttpResponse.json(staff);
+    return res(ctx.status(200), ctx.json(staff));
   }),
 
   // GET /api/characters/house/:house - Por casa
-  http.get('https://hp-api.onrender.com/api/characters/house/:house', ({ params }) => {
-    const { house } = params;
+  rest.get('https://hp-api.onrender.com/api/characters/house/:house', (req, res, ctx) => {
+    const { house } = req.params;
     console.log(`[MSW] Mocked GET /api/characters/house/${house}`);
     const byHouse = mockCharacters.filter(c => 
       c.house?.toLowerCase() === house.toLowerCase()
     );
-    return HttpResponse.json(byHouse);
+    return res(ctx.status(200), ctx.json(byHouse));
   }),
 
   // GET /api/spells - Hechizos
-  http.get('https://hp-api.onrender.com/api/spells', () => {
+  rest.get('https://hp-api.onrender.com/api/spells', (req, res, ctx) => {
     console.log('[MSW] Mocked GET /api/spells');
-    return HttpResponse.json(mockSpells);
+    return res(ctx.status(200), ctx.json(mockSpells));
   }),
 
   // Simular error 404
-  http.get('https://hp-api.onrender.com/api/notfound', () => {
+  rest.get('https://hp-api.onrender.com/api/notfound', (req, res, ctx) => {
     console.log('[MSW] Mocked 404 error');
-    return new HttpResponse(null, { status: 404 });
+    return res(ctx.status(404));
   }),
 
   // Simular error 500
-  http.get('https://hp-api.onrender.com/api/servererror', () => {
+  rest.get('https://hp-api.onrender.com/api/servererror', (req, res, ctx) => {
     console.log('[MSW] Mocked 500 error');
-    return new HttpResponse(null, { status: 500 });
+    return res(ctx.status(500));
   }),
 
   // Simular timeout (delay largo)
-  http.get('https://hp-api.onrender.com/api/timeout', async () => {
+  rest.get('https://hp-api.onrender.com/api/timeout', (req, res, ctx) => {
     console.log('[MSW] Mocked timeout');
-    await new Promise(resolve => setTimeout(resolve, 35000)); // > timeout del cliente
-    return HttpResponse.json({ data: 'too late' });
+    return res(
+      ctx.delay(35000),
+      ctx.status(200),
+      ctx.json({ data: 'too late' })
+    );
   })
 ];
 

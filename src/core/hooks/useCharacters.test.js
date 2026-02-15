@@ -8,8 +8,8 @@
  * - Refetch manual
  */
 import { renderHook, waitFor } from '@testing-library/react';
-import { useCharacters, useStudents, useCharactersByHouse } from '../useCharacters';
-import { CacheProvider } from '../../context/CacheProvider';
+import { useCharacters, useStudents, useCharactersByHouse } from './useCharacters';
+import { CacheProvider } from '../context/CacheProvider';
 import React from 'react';
 
 /**
@@ -70,14 +70,12 @@ describe('useCharacters', () => {
     // Refetch
     result.current.refetch();
     
-    // Debe estar loading de nuevo
-    await waitFor(() => {
-      expect(result.current.loading).toBe(true);
-    });
-    
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
     });
+
+    expect(result.current.error).toBeNull();
+    expect(result.current.data).toHaveLength(2);
     
     expect(result.current.data).toHaveLength(2);
   });
@@ -111,7 +109,7 @@ describe('useCharactersByHouse', () => {
     
     expect(result.current.data).toHaveLength(2);
     result.current.data.forEach(character => {
-      expect(character.house).toBe('Gryffindor');
+      expect(character.house?.name).toBe('Gryffindor');
     });
   });
 

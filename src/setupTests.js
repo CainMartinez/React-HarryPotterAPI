@@ -5,7 +5,31 @@
  * incluyendo MSW para mockear peticiones HTTP.
  */
 import '@testing-library/jest-dom';
-import { server } from './mocks/server';
+
+const { TextEncoder, TextDecoder } = require('util');
+const { ReadableStream, WritableStream, TransformStream } = require('stream/web');
+
+if (!global.TextEncoder) {
+  global.TextEncoder = TextEncoder;
+}
+
+if (!global.TextDecoder) {
+  global.TextDecoder = TextDecoder;
+}
+
+if (!global.ReadableStream) {
+  global.ReadableStream = ReadableStream;
+}
+
+if (!global.WritableStream) {
+  global.WritableStream = WritableStream;
+}
+
+if (!global.TransformStream) {
+  global.TransformStream = TransformStream;
+}
+
+const { server } = require('./mocks/server');
 
 /**
  * Configurar MSW antes de todos los tests
