@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CacheProvider } from './core/context';
-import { Navbar } from './shared/components';
+import { Navbar, PageTransition } from './shared/components';
 import Home from './features/home';
 import Characters from './features/characters';
 import Houses from './features/houses';
@@ -63,17 +63,19 @@ function App() {
           </button>
 
           <Navbar />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/characters" element={<Characters />} />
-              <Route path="/houses" element={<Houses />} />
-              <Route path="/spells" element={<Spells />} />
-              <Route path="/students" element={<Students />} />
-              <Route path="/staff" element={<Staff />} />
-              <Route path="/cats" element={<Cats />} />
-            </Routes>
-          </main>
+          <PageTransition>
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/characters" element={<Characters />} />
+                <Route path="/houses" element={<Houses />} />
+                <Route path="/spells" element={<Spells />} />
+                <Route path="/students" element={<Students />} />
+                <Route path="/staff" element={<Staff />} />
+                <Route path="/cats" element={<Cats />} />
+              </Routes>
+            </main>
+          </PageTransition>
           <footer className="footer">
             <div className="footer-content">
               <p className="footer-text">
